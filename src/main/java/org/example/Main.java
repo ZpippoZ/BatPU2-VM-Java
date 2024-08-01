@@ -90,8 +90,8 @@ public class Main {
                     break;
                 case 3:
                     result = regs[regA] - regs[regB];
-                    regs[regDest] = result & 255;
                     flags[0] = regs[regA] >= regs[regB];
+                    regs[regDest] = result & 255;
                     flags[1] = regs[regDest] == 0;
                     break;
                 case 4:
