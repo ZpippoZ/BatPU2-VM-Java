@@ -70,7 +70,7 @@ public class Main {
             switch (opcode) {
                 case 1:
                     running = false;
-                    System.out.println("Halted");
+                    System.out.println("\nHalted\n");
                     break;
                 case 2:
                     result = regs[regA] + regs[regB];
@@ -139,9 +139,10 @@ public class Main {
         long end_time = System.nanoTime();
         double time = (double) (end_time - start_time) / 1_000_000_000;
 
-        System.out.println("\nProgram ran for " + time + " seconds");
         System.out.println(cycles + " cycles executed");
-        System.out.println("Average instructions per second: " + cycles / time);
+        System.out.println("The program ran for " + String.format("%.3f", time) + " seconds");
+        System.out.println("Average instruction time: " + String.format("%.10f", time / cycles));
+        System.out.println("Average instructions per second: " + String.format("%.3f", cycles / time));
 
     }
 
