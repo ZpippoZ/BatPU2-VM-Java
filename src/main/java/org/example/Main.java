@@ -8,16 +8,16 @@ public class Main {
 
         int[] lines = new int[27];
 
-        lines[0] =  0b1000000111111111;
-        lines[1] =  0b1000001011111111;
-        lines[2] =  0b1000001100000011;
-        lines[3] =  0b0000000000000000;
-        lines[4] =  0b0000000000000000;
-        lines[5] =  0b0000000000000000;
-        lines[6] =  0b0010000000000000;
-        lines[7] =  0b0011000000000000;
-        lines[8] =  0b0100000000000000;
-        lines[9] =  0b0101000000000000;
+        lines[0]  = 0b1000000111111111;
+        lines[1]  = 0b1000001011111111;
+        lines[2]  = 0b1000001100000011;
+        lines[3]  = 0b0000000000000000;
+        lines[4]  = 0b0000000000000000;
+        lines[5]  = 0b0000000000000000;
+        lines[6]  = 0b0010000000000000;
+        lines[7]  = 0b0011000000000000;
+        lines[8]  = 0b0100000000000000;
+        lines[9]  = 0b0101000000000000;
         lines[10] = 0b0110000000000000;
         lines[11] = 0b0111000000000000;
         lines[12] = 0b1000000000000000;
@@ -43,10 +43,11 @@ public class Main {
         ArrayList<Integer> stack = new ArrayList<>(32);
 
         int cycles = 0;
+        int result;
+
+        long start_time = System.nanoTime();
 
         boolean running = true;
-
-        int result;
 
         while(running) {
             regs[0] = 0;
@@ -135,7 +136,12 @@ public class Main {
 
         }
 
-        System.out.println(String.valueOf(cycles) + " cycles executed");
+        long end_time = System.nanoTime();
+        double time = (double) (end_time - start_time) / 1_000_000_000;
+
+        System.out.println("\nProgram ran for " + time + " seconds");
+        System.out.println(cycles + " cycles executed");
+        System.out.println("Average instructions per second: " + cycles / time);
 
     }
 
