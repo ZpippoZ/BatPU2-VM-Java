@@ -36,14 +36,7 @@ public class Main {
         lines[25] = 0b0001000000000000;
         lines[26] = 0b1101000000000000;
 
-        for(int i = 1; i < 10; i++) {
-            System.out.println("r3: " + i + "; time: " + executeProgram(lines, i));
-        }
-
-    }
-
-    public static double executeProgram(int[] lines, int r3) {
-        int pc = 3;
+        int pc = 0;
         boolean[] flags = {false, false};
         int[] regs = new int[16];
         int[] ram = new int[256];
@@ -56,11 +49,7 @@ public class Main {
 
         boolean running = true;
 
-        regs[1] = 255;
-        regs[2] = 255;
-        regs[3] = r3;
-
-        while (running) {
+        while(running) {
             regs[0] = 0;
 
             int instruction = lines[pc];
@@ -81,6 +70,7 @@ public class Main {
             switch (opcode) {
                 case 1:
                     running = false;
+                    System.out.println("\nHalted\n");
                     break;
                 case 2:
                     result = regs[regA] + regs[regB];
@@ -115,6 +105,7 @@ public class Main {
                 case 9:
                     result = regs[regA] + immediate;
                     regs[regA] = result & 255;
+                    // System.out.print(regA == 3 ? String.valueOf(regs[regA]) + "\n" : "");
                     flags[0] = result > 255;
                     flags[1] = regs[regA] == 0;
                     break;
@@ -146,13 +137,12 @@ public class Main {
         }
 
         long end_time = System.nanoTime();
+        double time = (double) (end_time - start_time) / 1_000_000_000;
 
-        /*System.out.println(cycles + " cycles executed");
+        System.out.println(cycles + " cycles executed");
         System.out.println("The program ran for " + String.format("%.3f", time) + " seconds");
         System.out.println("Average instruction time: " + String.format("%.10f", time / cycles));
-        System.out.println("Average instructions per second: " + String.format("%.3f", cycles / time));*/
-
-        return (double) (end_time - start_time) / 1_000_000_000;
+        System.out.println("Average instructions per second: " + String.format("%.3f", cycles / time));
 
     }
 
