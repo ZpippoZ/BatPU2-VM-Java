@@ -10,7 +10,7 @@ public class Main {
 
         lines[0]  = 0b1000000111111111;
         lines[1]  = 0b1000001011111111;
-        lines[2]  = 0b1000001100000011;
+        lines[2]  = 0b1000001111111111;
         lines[3]  = 0b0000000000000000;
         lines[4]  = 0b0000000000000000;
         lines[5]  = 0b0000000000000000;
@@ -80,8 +80,8 @@ public class Main {
                     break;
                 case 3:
                     result = regs[regA] - regs[regB];
-                    regs[regDest] = result & 255;
                     flags[0] = regs[regA] >= regs[regB];
+                    regs[regDest] = result & 255;
                     flags[1] = regs[regDest] == 0;
                     break;
                 case 4:
@@ -122,6 +122,7 @@ public class Main {
                     break;
                 case 12:
                     stack.add(0, pc);
+                    pc = address;
                     break;
                 case 13:
                     pc = stack.remove(0);
@@ -141,7 +142,7 @@ public class Main {
 
         System.out.println(cycles + " cycles executed");
         System.out.println("The program ran for " + String.format("%.3f", time) + " seconds");
-        System.out.println("Average instruction time: " + String.format("%.10f", time / cycles));
+        System.out.println("Average instruction time: " + String.format("%.10f", time / cycles) + " seconds");
         System.out.println("Average instructions per second: " + String.format("%.3f", cycles / time));
 
     }
