@@ -121,11 +121,11 @@ public class Main {
                     }
                     break;
                 case 12:
-                    stack.add(0, pc);
+                    stack.add(pc);
                     pc = address;
                     break;
                 case 13:
-                    pc = stack.remove(0);
+                    pc = stack.remove(stack.size() - 1);
                     break;
                 case 14:
                     regs[regB] = ram[regA + ram_offset];
@@ -140,10 +140,10 @@ public class Main {
         long end_time = System.nanoTime();
         double time = (double) (end_time - start_time) / 1_000_000_000;
 
-        System.out.println(cycles + " cycles executed");
+        System.out.println(cycles + " cycles executed (" + cycles / 1_000_000 + "m)");
         System.out.println("The program ran for " + String.format("%.3f", time) + " seconds");
         System.out.println("Average instruction time: " + String.format("%.10f", time / cycles) + " seconds");
-        System.out.println("Average instructions per second: " + String.format("%.3f", cycles / time));
+        System.out.println("Average instructions per second: " + String.format("%.3f", cycles / time) + " (" + (int) (cycles / time / 1_000_000) + "m ips)");
 
     }
 
